@@ -8,9 +8,11 @@ import (
 )
 
 func FromNodeInfo(n *node.NodeInfo) Host {
-    node_type := "VMware(Guest)"
+    node_type := ""
     if n.Host.VirtualizationSystem == "" {
         node_type = "real"
+    } else {
+        node_type = fmt.Sprintf("%s(%s)", n.Host.VirtualizationSystem, n.Host.VirtualizationRole)
     }
 
     localip  := []string{}
@@ -40,7 +42,7 @@ func FromNodeInfo(n *node.NodeInfo) Host {
         CPU:      fmt.Sprintf("%s x %dCore", n.CPU[0].ModelName, n.CPU[0].Cores),
         Memory:   fmt.Sprintf("%dGB", n.Memory.Total / 1024 / 1024 / 1024),
         Disk:     fmt.Sprintf("%dGB", n.Disk.Total / 1024 / 1024 / 1024),
-        OS:       fmt.Sprintf("%s %s", n.Host.OS, n.Host.PlatformVersion),
+        OS:       fmt.Sprintf("%s %s", n.Host.Platform, n.Host.PlatformVersion),
         DNSName:  []string{ n.Host.Hostname },
         LocalIP:  localip,
         GlobalIP: globalip,
