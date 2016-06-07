@@ -8,6 +8,7 @@ import (
     "github.com/ytnobody/kikyo-agent/node"
 )
 
+// Export node information to Kikyo Host struct
 func FromNodeInfo(n *node.NodeInfo) Host {
     ips := []string{}
 

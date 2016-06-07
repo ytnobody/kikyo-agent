@@ -9,6 +9,7 @@ import (
     "github.com/shirou/gopsutil/disk"
 )
 
+// Get host information and return as NodeInfo struct
 func Info() (*NodeInfo, error) {
     nil_info := &NodeInfo{}
 

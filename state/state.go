@@ -10,6 +10,7 @@ import (
 
 var StateFile = "/tmp/kikyo.state"
 
+// Save agent state
 func Save (jsonStr string) error {
     content := []byte(fmt.Sprintf("%s", jsonStr))
     err := ioutil.WriteFile(StateFile, content, os.ModePerm)
@@ -17,6 +18,7 @@ func Save (jsonStr string) error {
     return err
 }
 
+// Load agent state
 func Load () (*State, error) {
     if NotExists() {
         return nil, errors.New("StateFile is not exists")
@@ -36,6 +38,8 @@ func Load () (*State, error) {
     return &st, nil
 }
 
+
+// Check StateFile is not exists
 func NotExists () bool {
     _, err := os.Stat(StateFile)
     return os.IsNotExist(err)

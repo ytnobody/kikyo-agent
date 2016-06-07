@@ -15,6 +15,7 @@ import (
 var VERSION = 0.01
 var TimeOut = 15
 
+// Create an Agent struct
 func Create () (*Agent, error) {
     baseurl := os.Getenv("KIKYO_BASEURL")
     if baseurl == "" {
@@ -36,6 +37,7 @@ type Agent struct {
     Client  *http.Client
 }
 
+// Add / Update a host information on Kikyo
 func (ag *Agent) AddToRack (rack string, unit int64) error {
     ni, err  := node.Info()
     if err != nil {
