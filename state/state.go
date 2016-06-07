@@ -50,6 +50,7 @@ type Host struct {
     Name      string `json:"name"`
     Rack      string `json:"rack"`
     Unit      int64  `json:"unit"`
+    Size      int64  `json:"size"`
     CPU       string `json:"cpu"`
     Memory    string `json:"memory"`
     Disk      string `json:"disk"`
