@@ -38,12 +38,12 @@ type Agent struct {
 }
 
 // Add / Update a host information on Kikyo
-func (ag *Agent) AddToRack (rack string, unit int64) error {
+func (ag *Agent) AddToRack (rack string, unit int64, vid int64) error {
     ni, err  := node.Info()
     if err != nil {
         return err
     }
-    host := exporter.FromNodeInfo(ni)
+    host := exporter.FromNodeInfo(ni, vid)
 
     st, err := state.Load()
     if err == nil {

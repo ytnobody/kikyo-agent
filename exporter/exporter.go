@@ -9,7 +9,7 @@ import (
 )
 
 // Export node information to Kikyo Host struct
-func FromNodeInfo(n *node.NodeInfo) Host {
+func FromNodeInfo(n *node.NodeInfo, vid int64) Host {
     ips := []string{}
 
     ipaddr_format, _ := regexp.Compile(`^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}`)
@@ -25,25 +25,27 @@ func FromNodeInfo(n *node.NodeInfo) Host {
     }
 
     myhost := Host{
-        Name:     n.Host.Hostname,
-        CPU:      fmt.Sprintf("%s x %dCore", n.CPU[0].ModelName, n.CPU[0].Cores),
-        Memory:   fmt.Sprintf("%dGB", n.Memory.Total / 1024 / 1024 / 1024),
-        Disk:     fmt.Sprintf("%dGB", n.Disk.Total / 1024 / 1024 / 1024),
-        OS:       fmt.Sprintf("%s %s", n.Host.Platform, n.Host.PlatformVersion),
-        IP:       strings.Join(ips, ", "),
+        Name:      n.Host.Hostname,
+        CPU:       fmt.Sprintf("%s x %dCore", n.CPU[0].ModelName, n.CPU[0].Cores),
+        Memory:    fmt.Sprintf("%dGB", n.Memory.Total / 1024 / 1024 / 1024),
+        Disk:      fmt.Sprintf("%dGB", n.Disk.Total / 1024 / 1024 / 1024),
+        OS:        fmt.Sprintf("%s %s", n.Host.Platform, n.Host.PlatformVersion),
+        IP:        strings.Join(ips, ", "),
+        VirtualID: vid,
     }
 
     return myhost
 }
 
 type Host struct {
-    Id       *int64   `json:"id"`
-    Name     string   `json:"name"`
-    CPU      string   `json:"cpu"`
-    Memory   string   `json:"memory"`
-    Disk     string   `json:"disk"`
-    OS       string   `json:"os"`
-    IP       string   `json:"ip"`
+    Id        *int64   `json:"id"`
+    Name      string   `json:"name"`
+    CPU       string   `json:"cpu"`
+    Memory    string   `json:"memory"`
+    Disk      string   `json:"disk"`
+    OS        string   `json:"os"`
+    IP        string   `json:"ip"`
+    VirtualID int64    `json:"virtual_id"`
 }
 
 func (d Host) String() string {
